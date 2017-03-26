@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Openlayer_test.TESTDB.EF", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Openlayer_test.TESTDB.Interface", "Openlayer_test.Repository.Interface\Openlayer_test.TESTDB.Interface.csproj", "{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3CA0EBC6-2FCF-455D-9120-BFEC75825BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_web", "test_web\test_web.csproj", "{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +83,16 @@ Global
 		{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}.Release|x86.ActiveCfg = Release|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +103,6 @@ Global
 		{1AE375C4-601B-4549-843B-6DD854932175} = {69BB6F14-3EA0-455E-9DB0-70177CA3E825}
 		{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F} = {F5EAF70C-AE10-4EC7-A29D-5B388271A643}
 		{CAD4A749-69E8-48DF-95F5-3BF9CC1F7E9B} = {4037DD1C-5AD8-4F1D-BD09-10F553CE7C70}
+		{2F8891DF-5FC1-486E-826E-ED4D70BAD51B} = {3CA0EBC6-2FCF-455D-9120-BFEC75825BF6}
 	EndGlobalSection
 EndGlobal
