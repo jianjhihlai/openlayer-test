@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Openlayer_test.TESTDB
 {
-    class Table2
+    public class Table2
     {
     }
 }

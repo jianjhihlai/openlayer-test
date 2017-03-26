@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Openlayer_test.TESTDB
 {
-    class Town
+    public class Town
     {
         public int TownID { get; set; }
         public int CountyID { get; set; }

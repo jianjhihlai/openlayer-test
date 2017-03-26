@@ -51,6 +51,20 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Openlayer_test.Domain\Openlayer_test.TESTDB.csproj">
+      <Project>{1AE375C4-601B-4549-843B-6DD854932175}</Project>
+      <Name>Openlayer_test.TESTDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Openlayer_test.Repository.Implement\Openlayer_test.TESTDB.EF.csproj">
+      <Project>{CAD4A749-69E8-48DF-95F5-3BF9CC1F7E9B}</Project>
+      <Name>Openlayer_test.TESTDB.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Openlayer_test.Repository.Interface\Openlayer_test.TESTDB.Interface.csproj">
+      <Project>{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}</Project>
+      <Name>Openlayer_test.TESTDB.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

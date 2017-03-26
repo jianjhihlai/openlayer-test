@@ -6,7 +6,7 @@ using System.Data;
 
 namespace ImportToSQLDB
 {
-    class Table1Importer:ITableImporter
+    public class Table1Importer:ITableImporter
     {
         public DataTable ParseCSVToDataTable(string csv_file)
         {

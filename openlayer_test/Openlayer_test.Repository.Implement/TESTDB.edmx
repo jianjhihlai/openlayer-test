@@ -56,7 +56,7 @@
             <PropertyRef Name="Table1ID" />
           </Key>
           <Property Name="Table1ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="PlanYear" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="PlanYear" Type="int" Nullable="false" />
           <Property Name="SUBBASINNA" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="VillageID" Type="int" Nullable="false" />
           <Property Name="DisName" Type="nvarchar" Nullable="false" MaxLength="50" />

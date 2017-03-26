@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ImportToSQLDB
 {
-    class ImporterFactory
+    public class ImporterFactory
     {
         public ITableImporter GetImporter(string table_type)
         {
