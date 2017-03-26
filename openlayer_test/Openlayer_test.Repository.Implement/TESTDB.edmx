@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TESTDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TESTDBModelStoreContainer">
+          <EntitySet Name="Basic_County" EntityType="TESTDBModel.Store.Basic_County" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Basic_Town" EntityType="TESTDBModel.Store.Basic_Town" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Basic_Village" EntityType="TESTDBModel.Store.Basic_Village" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Table1" EntityType="TESTDBModel.Store.Table1" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Table2" EntityType="TESTDBModel.Store.Table2" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_County_Town" Association="TESTDBModel.Store.FK_County_Town">
+            <End Role="Basic_County" EntitySet="Basic_County" />
+            <End Role="Basic_Town" EntitySet="Basic_Town" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Town_Village" Association="TESTDBModel.Store.FK_Town_Village">
+            <End Role="Basic_Town" EntitySet="Basic_Town" />
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Village_Table1" Association="TESTDBModel.Store.FK_Village_Table1">
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+            <End Role="Table1" EntitySet="Table1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Village_Table2" Association="TESTDBModel.Store.FK_Village_Table2">
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+            <End Role="Table2" EntitySet="Table2" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Basic_County">
+          <Key>
+            <PropertyRef Name="CountyID" />
+          </Key>
+          <Property Name="CountyID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CountyName" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Basic_Town">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TownName" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="CountyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Basic_Village">
+          <Key>
+            <PropertyRef Name="VillageID" />
+          </Key>
+          <Property Name="VillageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="VillageName" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="TownID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table1">
+          <Key>
+            <PropertyRef Name="Table1ID" />
+          </Key>
+          <Property Name="Table1ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PlanYear" Type="int" Nullable="false" />
+          <Property Name="SUBBASINNA" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="VillageID" Type="int" Nullable="false" />
+          <Property Name="DisName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="X" Type="float" Nullable="false" />
+          <Property Name="Y" Type="float" Nullable="false" />
+          <Property Name="Lon" Type="float" Nullable="false" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table2">
+          <Key>
+            <PropertyRef Name="Table2ID" />
+          </Key>
+          <Property Name="Table2ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RawFile" Type="nvarchar" MaxLength="255" />
+          <Property Name="EnviFile" Type="nvarchar" MaxLength="255" />
+          <Property Name="TileFile" Type="nvarchar" MaxLength="255" />
+          <Property Name="Lon" Type="float" Nullable="false" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+          <Property Name="LeftGeo" Type="float" Nullable="false" />
+          <Property Name="RightGeo" Type="float" Nullable="false" />
+          <Property Name="TopGeo" Type="float" Nullable="false" />
+          <Property Name="BottomGeo" Type="float" Nullable="false" />
+          <Property Name="Resolution" Type="float" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="Day" Type="int" Nullable="false" />
+          <Property Name="DisName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="VillageID" Type="int" Nullable="false" />
+          <Property Name="Basin" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="Subbasinna" Type="nvarchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_County_Town">
+          <End Role="Basic_County" Type="TESTDBModel.Store.Basic_County" Multiplicity="1" />
+          <End Role="Basic_Town" Type="TESTDBModel.Store.Basic_Town" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_County">
+              <PropertyRef Name="CountyID" />
+            </Principal>
+            <Dependent Role="Basic_Town">
+              <PropertyRef Name="CountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Town_Village">
+          <End Role="Basic_Town" Type="TESTDBModel.Store.Basic_Town" Multiplicity="1" />
+          <End Role="Basic_Village" Type="TESTDBModel.Store.Basic_Village" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Town">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="Basic_Village">
+              <PropertyRef Name="TownID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Village_Table1">
+          <End Role="Basic_Village" Type="TESTDBModel.Store.Basic_Village" Multiplicity="1" />
+          <End Role="Table1" Type="TESTDBModel.Store.Table1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Village">
+              <PropertyRef Name="VillageID" />
+            </Principal>
+            <Dependent Role="Table1">
+              <PropertyRef Name="VillageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Village_Table2">
+          <End Role="Basic_Village" Type="TESTDBModel.Store.Basic_Village" Multiplicity="1" />
+          <End Role="Table2" Type="TESTDBModel.Store.Table2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Village">
+              <PropertyRef Name="VillageID" />
+            </Principal>
+            <Dependent Role="Table2">
+              <PropertyRef Name="VillageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TESTDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TESTDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Basic_County" EntityType="TESTDBModel.Basic_County" />
+          <EntitySet Name="Basic_Town" EntityType="TESTDBModel.Basic_Town" />
+          <EntitySet Name="Basic_Village" EntityType="TESTDBModel.Basic_Village" />
+          <EntitySet Name="Table1" EntityType="TESTDBModel.Table1" />
+          <EntitySet Name="Table2" EntityType="TESTDBModel.Table2" />
+          <AssociationSet Name="FK_County_Town" Association="TESTDBModel.FK_County_Town">
+            <End Role="Basic_County" EntitySet="Basic_County" />
+            <End Role="Basic_Town" EntitySet="Basic_Town" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Town_Village" Association="TESTDBModel.FK_Town_Village">
+            <End Role="Basic_Town" EntitySet="Basic_Town" />
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Village_Table1" Association="TESTDBModel.FK_Village_Table1">
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+            <End Role="Table1" EntitySet="Table1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Village_Table2" Association="TESTDBModel.FK_Village_Table2">
+            <End Role="Basic_Village" EntitySet="Basic_Village" />
+            <End Role="Table2" EntitySet="Table2" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Basic_County">
+          <Key>
+            <PropertyRef Name="CountyID" />
+          </Key>
+          <Property Name="CountyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountyName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Basic_Town" Relationship="TESTDBModel.FK_County_Town" FromRole="Basic_County" ToRole="Basic_Town" />
+        </EntityType>
+        <EntityType Name="Basic_Town">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TownName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="CountyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Basic_County" Relationship="TESTDBModel.FK_County_Town" FromRole="Basic_Town" ToRole="Basic_County" />
+          <NavigationProperty Name="Basic_Village" Relationship="TESTDBModel.FK_Town_Village" FromRole="Basic_Town" ToRole="Basic_Village" />
+        </EntityType>
+        <EntityType Name="Basic_Village">
+          <Key>
+            <PropertyRef Name="VillageID" />
+          </Key>
+          <Property Name="VillageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VillageName" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="TownID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Basic_Town" Relationship="TESTDBModel.FK_Town_Village" FromRole="Basic_Village" ToRole="Basic_Town" />
+          <NavigationProperty Name="Table1" Relationship="TESTDBModel.FK_Village_Table1" FromRole="Basic_Village" ToRole="Table1" />
+          <NavigationProperty Name="Table2" Relationship="TESTDBModel.FK_Village_Table2" FromRole="Basic_Village" ToRole="Table2" />
+        </EntityType>
+        <EntityType Name="Table1">
+          <Key>
+            <PropertyRef Name="Table1ID" />
+          </Key>
+          <Property Name="Table1ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanYear" Type="Int32" Nullable="false" />
+          <Property Name="SUBBASINNA" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="VillageID" Type="Int32" Nullable="false" />
+          <Property Name="DisName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="X" Type="Double" Nullable="false" />
+          <Property Name="Y" Type="Double" Nullable="false" />
+          <Property Name="Lon" Type="Double" Nullable="false" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Basic_Village" Relationship="TESTDBModel.FK_Village_Table1" FromRole="Table1" ToRole="Basic_Village" />
+        </EntityType>
+        <EntityType Name="Table2">
+          <Key>
+            <PropertyRef Name="Table2ID" />
+          </Key>
+          <Property Name="Table2ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RawFile" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="EnviFile" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="TileFile" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Lon" Type="Double" Nullable="false" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="LeftGeo" Type="Double" Nullable="false" />
+          <Property Name="RightGeo" Type="Double" Nullable="false" />
+          <Property Name="TopGeo" Type="Double" Nullable="false" />
+          <Property Name="BottomGeo" Type="Double" Nullable="false" />
+          <Property Name="Resolution" Type="Double" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Month" Type="Int32" Nullable="false" />
+          <Property Name="Day" Type="Int32" Nullable="false" />
+          <Property Name="DisName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="VillageID" Type="Int32" Nullable="false" />
+          <Property Name="Basin" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="Subbasinna" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Basic_Village" Relationship="TESTDBModel.FK_Village_Table2" FromRole="Table2" ToRole="Basic_Village" />
+        </EntityType>
+        <Association Name="FK_County_Town">
+          <End Role="Basic_County" Type="TESTDBModel.Basic_County" Multiplicity="1" />
+          <End Role="Basic_Town" Type="TESTDBModel.Basic_Town" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_County">
+              <PropertyRef Name="CountyID" />
+            </Principal>
+            <Dependent Role="Basic_Town">
+              <PropertyRef Name="CountyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Town_Village">
+          <End Role="Basic_Town" Type="TESTDBModel.Basic_Town" Multiplicity="1" />
+          <End Role="Basic_Village" Type="TESTDBModel.Basic_Village" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Town">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="Basic_Village">
+              <PropertyRef Name="TownID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Village_Table1">
+          <End Role="Basic_Village" Type="TESTDBModel.Basic_Village" Multiplicity="1" />
+          <End Role="Table1" Type="TESTDBModel.Table1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Village">
+              <PropertyRef Name="VillageID" />
+            </Principal>
+            <Dependent Role="Table1">
+              <PropertyRef Name="VillageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Village_Table2">
+          <End Role="Basic_Village" Type="TESTDBModel.Basic_Village" Multiplicity="1" />
+          <End Role="Table2" Type="TESTDBModel.Table2" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Basic_Village">
+              <PropertyRef Name="VillageID" />
+            </Principal>
+            <Dependent Role="Table2">
+              <PropertyRef Name="VillageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TESTDBModelStoreContainer" CdmEntityContainer="TESTDBEntities">
+          <EntitySetMapping Name="Basic_County">
+            <EntityTypeMapping TypeName="TESTDBModel.Basic_County">
+              <MappingFragment StoreEntitySet="Basic_County">
+                <ScalarProperty Name="CountyID" ColumnName="CountyID" />
+                <ScalarProperty Name="CountyName" ColumnName="CountyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Town">
+            <EntityTypeMapping TypeName="TESTDBModel.Basic_Town">
+              <MappingFragment StoreEntitySet="Basic_Town">
+                <ScalarProperty Name="TownID" ColumnName="TownID" />
+                <ScalarProperty Name="TownName" ColumnName="TownName" />
+                <ScalarProperty Name="CountyID" ColumnName="CountyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Basic_Village">
+            <EntityTypeMapping TypeName="TESTDBModel.Basic_Village">
+              <MappingFragment StoreEntitySet="Basic_Village">
+                <ScalarProperty Name="VillageID" ColumnName="VillageID" />
+                <ScalarProperty Name="VillageName" ColumnName="VillageName" />
+                <ScalarProperty Name="TownID" ColumnName="TownID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table1">
+            <EntityTypeMapping TypeName="TESTDBModel.Table1">
+              <MappingFragment StoreEntitySet="Table1">
+                <ScalarProperty Name="Table1ID" ColumnName="Table1ID" />
+                <ScalarProperty Name="PlanYear" ColumnName="PlanYear" />
+                <ScalarProperty Name="SUBBASINNA" ColumnName="SUBBASINNA" />
+                <ScalarProperty Name="VillageID" ColumnName="VillageID" />
+                <ScalarProperty Name="DisName" ColumnName="DisName" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table2">
+            <EntityTypeMapping TypeName="TESTDBModel.Table2">
+              <MappingFragment StoreEntitySet="Table2">
+                <ScalarProperty Name="Table2ID" ColumnName="Table2ID" />
+                <ScalarProperty Name="RawFile" ColumnName="RawFile" />
+                <ScalarProperty Name="EnviFile" ColumnName="EnviFile" />
+                <ScalarProperty Name="TileFile" ColumnName="TileFile" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="LeftGeo" ColumnName="LeftGeo" />
+                <ScalarProperty Name="RightGeo" ColumnName="RightGeo" />
+                <ScalarProperty Name="TopGeo" ColumnName="TopGeo" />
+                <ScalarProperty Name="BottomGeo" ColumnName="BottomGeo" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="DisName" ColumnName="DisName" />
+                <ScalarProperty Name="VillageID" ColumnName="VillageID" />
+                <ScalarProperty Name="Basin" ColumnName="Basin" />
+                <ScalarProperty Name="Subbasinna" ColumnName="Subbasinna" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TESTDB" ZoomLevel="93">
+        <EntityTypeShape EntityType="TESTDBModel.Basic_County" Width="1.5" PointX="0.75" PointY="4.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TESTDBModel.Basic_Town" Width="1.5" PointX="3" PointY="4.375" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="TESTDBModel.Basic_Village" Width="1.5" PointX="5.25" PointY="4.375" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TESTDBModel.Table1" Width="1.5" PointX="7.5" PointY="1.25" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="TESTDBModel.Table2" Width="1.5" PointX="7.5" PointY="4.875" Height="4.6725065104166674" IsExpanded="true" />
+        <AssociationConnector Association="TESTDBModel.FK_County_Town" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.422841796875" />
+          <ConnectorPoint PointX="3" PointY="5.422841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TESTDBModel.FK_Town_Village" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.3651432291666667" />
+          <ConnectorPoint PointX="5.25" PointY="5.3651432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="TESTDBModel.FK_Village_Table1" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="4.375" />
+          <ConnectorPoint PointX="6" PointY="2.7208968098958328" />
+          <ConnectorPoint PointX="7.5" PointY="2.7208968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="TESTDBModel.FK_Village_Table2" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="5.7112939453125" />
+          <ConnectorPoint PointX="7.5" PointY="5.7112939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

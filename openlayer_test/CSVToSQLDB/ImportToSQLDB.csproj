@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{86C72CE5-C90D-4E92-8F8E-7E21E492B729}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ImportToSQLDB</RootNamespace>
+    <AssemblyName>ImportToSQLDB</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSVReader.cs" />
+    <Compile Include="DBImporter.cs" />
+    <Compile Include="ExcelReader.cs" />
+    <Compile Include="FileParser.cs" />
+    <Compile Include="IFileReader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table1Importer.cs" />
+    <Compile Include="Table2Importer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Openlayer_test.Domain\Openlayer_test.TESTDB.csproj">
+      <Project>{1AE375C4-601B-4549-843B-6DD854932175}</Project>
+      <Name>Openlayer_test.TESTDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Openlayer_test.Repository.Implement\Openlayer_test.TESTDB.EF.csproj">
+      <Project>{CAD4A749-69E8-48DF-95F5-3BF9CC1F7E9B}</Project>
+      <Name>Openlayer_test.TESTDB.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Openlayer_test.Repository.Interface\Openlayer_test.TESTDB.Interface.csproj">
+      <Project>{CBCD4E4C-5C2C-4881-8F87-25B13E7E083F}</Project>
+      <Name>Openlayer_test.TESTDB.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
