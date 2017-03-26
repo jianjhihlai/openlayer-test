@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ILogHandler.cs" />
+    <Compile Include="LogFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +54,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CSVToSQLDB\ImportToSQLDB.csproj">
+      <Project>{86C72CE5-C90D-4E92-8F8E-7E21E492B729}</Project>
+      <Name>ImportToSQLDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Openlayer_test.Domain\Openlayer_test.TESTDB.csproj">
       <Project>{1AE375C4-601B-4549-843B-6DD854932175}</Project>
       <Name>Openlayer_test.TESTDB</Name>

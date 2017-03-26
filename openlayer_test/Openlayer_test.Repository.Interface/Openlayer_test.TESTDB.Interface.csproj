@@ -41,9 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICountyRepository.cs" />
+    <Compile Include="ITable1Repository.cs" />
     <Compile Include="ITownRepository.cs" />
     <Compile Include="IVillageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ITable2Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Openlayer_test.Domain\Openlayer_test.TESTDB.csproj">

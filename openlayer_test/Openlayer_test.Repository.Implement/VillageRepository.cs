@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Openlayer_test.TESTDB;
-using Openlayer_test.Repository.Interface;
+using Openlayer_test.TESTDB.Interface;
 
 namespace Openlayer_test.TESTDB.EF
 {
     public class VillageRepository:IVillageRepository
     {
+        protected List<Basic_Village> _village_list;
+
         public Village GetOne(int item_id)
         {
             var item = new Village();
@@ -58,11 +60,23 @@ namespace Openlayer_test.TESTDB.EF
             try
             {
                 var ef_item = VillageRepository.EFMapper(item);
-                if (ef_item != null)
+                if (_village_list == null)
+                {
+                    _village_list = (from village in dbContext.Basic_Village select village).ToList();
+                }
+                var item_exist = _village_list.FirstOrDefault(v => v.VillageName.Equals(item.VillageName)
+                                                             && v.Basic_Town.TownName.Equals(item.Town.TownName)
+                                                             && v.Basic_Town.Basic_County.CountyName.Equals(item.Town.County.CountyName));
+                if (item_exist == null)
                 {
                     dbContext.Basic_Village.AddObject(ef_item);
                     dbContext.SaveChanges();
-                    id = ef_item.VillageID;
+                    id = item.VillageID = ef_item.VillageID;
+                    _village_list.Add(ef_item);
+                }
+                else
+                {
+                    id = item.VillageID = item_exist.VillageID;
                 }
             }
             catch

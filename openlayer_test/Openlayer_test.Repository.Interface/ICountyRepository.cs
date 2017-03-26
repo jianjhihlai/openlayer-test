@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Openlayer_test.TESTDB;
 
-namespace Openlayer_test.Repository.Interface
+namespace Openlayer_test.TESTDB.Interface
 {
     public interface ICountyRepository
     {

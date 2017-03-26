@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Openlayer_test.TESTDB;
-using Openlayer_test.Repository.Interface;
+using Openlayer_test.TESTDB.Interface;
 
 namespace Openlayer_test.TESTDB.EF
 {
     public class CountyRepository:ICountyRepository
     {
+        protected List<Basic_County> _county_list;
+
 
         public County GetOne(int item_id)
         {
@@ -27,11 +29,23 @@ namespace Openlayer_test.TESTDB.EF
             try
             {
                 var ef_item = CountyRepository.EFMapper(item);
-                if (ef_item != null)
+
+                if (_county_list == null)
+                {
+                    _county_list = (from c in dbContext.Basic_County select c).ToList();
+                }
+                var item_exist = _county_list.FirstOrDefault(c => c.CountyName.Equals(item.CountyName));
+
+                if (item_exist == null)
                 {
                     dbContext.Basic_County.AddObject(ef_item);
                     dbContext.SaveChanges();
-                    id = ef_item.CountyID;
+                    id = item.CountyID = ef_item.CountyID;
+                    _county_list.Add(ef_item);
+                }
+                else
+                {
+                    id = item.CountyID = item_exist.CountyID;
                 }
             }
             catch

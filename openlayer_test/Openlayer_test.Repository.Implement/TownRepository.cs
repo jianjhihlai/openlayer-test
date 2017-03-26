@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Openlayer_test.TESTDB;
-using Openlayer_test.Repository.Interface;
+using Openlayer_test.TESTDB.Interface;
 
 namespace Openlayer_test.TESTDB.EF
 {
     public class TownRepository:ITownRepository
     {
+        protected List<Basic_Town> _town_list;
+
         public Town GetOne(int item_id)
         {
             throw new NotImplementedException();
@@ -26,11 +28,22 @@ namespace Openlayer_test.TESTDB.EF
             try
             {
                 var ef_item = TownRepository.EFMapper(item);
-                if (ef_item != null)
+                if (_town_list == null)
+                {
+                    _town_list = (from t in dbContext.Basic_Town select t).ToList();
+                }
+                var item_exist = _town_list.FirstOrDefault(t => t.TownName.Equals(item.TownName)
+                                                         && t.Basic_County.CountyName.Equals(item.County.CountyName));
+                if (item_exist == null)
                 {
                     dbContext.Basic_Town.AddObject(ef_item);
                     dbContext.SaveChanges();
-                    id = ef_item.TownID;
+                    id = item.TownID = ef_item.TownID;
+                    _town_list.Add(ef_item);
+                }
+                else
+                {
+                    id = item.TownID = item_exist.TownID;
                 }
             }
             catch
