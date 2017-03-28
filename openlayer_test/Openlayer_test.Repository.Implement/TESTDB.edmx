@@ -4,13 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TESTDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="TESTDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="TESTDBModelStoreContainer">
           <EntitySet Name="Basic_County" EntityType="TESTDBModel.Store.Basic_County" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Basic_Town" EntityType="TESTDBModel.Store.Basic_Town" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Basic_Village" EntityType="TESTDBModel.Store.Basic_Village" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Table1" EntityType="TESTDBModel.Store.Table1" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Table2" EntityType="TESTDBModel.Store.Table2" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="TESTDBModel.Store.User" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_County_Town" Association="TESTDBModel.Store.FK_County_Town">
             <End Role="Basic_County" EntitySet="Basic_County" />
             <End Role="Basic_Town" EntitySet="Basic_Town" />
@@ -88,6 +89,21 @@
           <Property Name="Basin" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Subbasinna" Type="nvarchar" Nullable="false" MaxLength="10" />
         </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="IsEnable" Type="bit" Nullable="false" />
+          <Property Name="CreateBy" Type="int" Nullable="false" />
+          <Property Name="CreateOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdateBy" Type="int" />
+          <Property Name="UpdateOn" Type="datetime" />
+        </EntityType>
         <Association Name="FK_County_Town">
           <End Role="Basic_County" Type="TESTDBModel.Store.Basic_County" Multiplicity="1" />
           <End Role="Basic_Town" Type="TESTDBModel.Store.Basic_Town" Multiplicity="*" />
@@ -136,8 +152,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TESTDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -163,6 +178,7 @@
             <End Role="Basic_Village" EntitySet="Basic_Village" />
             <End Role="Table2" EntitySet="Table2" />
           </AssociationSet>
+          <EntitySet Name="User" EntityType="TESTDBModel.User" />
         </EntityContainer>
         <EntityType Name="Basic_County">
           <Key>
@@ -280,6 +296,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Account" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsEnable" Nullable="false" />
+          <Property Type="Int32" Name="CreateBy" Nullable="false" />
+          <Property Type="DateTime" Name="CreateOn" Nullable="false" />
+          <Property Type="Int32" Name="UpdateBy" />
+          <Property Type="DateTime" Name="UpdateOn" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -351,6 +382,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="TESTDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UpdateOn" ColumnName="UpdateOn" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="CreateOn" ColumnName="CreateOn" />
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+                <ScalarProperty Name="IsEnable" ColumnName="IsEnable" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -394,6 +441,7 @@
           <ConnectorPoint PointX="6.75" PointY="5.7112939453125" />
           <ConnectorPoint PointX="7.5" PointY="5.7112939453125" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="TESTDBModel.User" Width="1.5" PointX="2.25" PointY="7.125" Height="2.9417936197916674" />
       </Diagram>
     </Diagrams>
   </Designer>

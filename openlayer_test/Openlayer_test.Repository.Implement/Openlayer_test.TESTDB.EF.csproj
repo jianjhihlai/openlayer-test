@@ -52,6 +52,7 @@
       <DependentUpon>TESTDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="TownRepository.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="VillageRepository.cs" />
     <Compile Include="Table2Repository.cs" />
   </ItemGroup>
