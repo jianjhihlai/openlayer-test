@@ -20,7 +20,7 @@
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-    <link href="~/Content/bootstrap-responsive.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
 
     <style type="text/css">
 
@@ -41,10 +41,9 @@
  
 
     <div class="container">
-
         <div class="row">
 
-            <div class="span4 offset4 well">
+            <div class="col-md-4 col-md-offset-4 well">
 
                 <legend>登入</legend>
 
@@ -66,18 +65,18 @@
 
  
 
-                @using (Html.BeginForm("Logon", "Home", FormMethod.Post))
-
+                @using (Html.BeginForm("Logon", "Home", FormMethod.Post, new { @role="form" }))
                 {
 
                     @Html.AntiForgeryToken()
 
  
-
-                    @Html.TextBoxFor(x => x.Account, new { @class = "span4", placeholder = "帳號", AutoComplete = "Off", tabindex = "1" })
-
-                    @Html.PasswordFor(x => x.Password, new { @class = "span4", placeholder = "密碼", AutoComplete = "Off", tabindex = "2" })
-
+                    <div class="form-group" >
+                        @Html.TextBoxFor(x => x.Account, new { @class = "form-control", placeholder = "帳號", AutoComplete = "Off", tabindex = "1" })
+                    </div>
+                    <div class="form-group" >
+                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "密碼", AutoComplete = "Off", tabindex = "2" })
+                    </div>
  
 
                     <label>

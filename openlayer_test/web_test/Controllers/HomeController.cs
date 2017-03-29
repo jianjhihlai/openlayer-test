@@ -22,6 +22,7 @@ namespace test_web.Controllers
             _user_model = new Openlayer_test.TESTDB.EF.UserRepository();
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             return View();
