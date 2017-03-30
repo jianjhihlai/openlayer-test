@@ -1,0 +1,142 @@
+﻿@model test_web.Models.LoginViewModel
+
+@{
+
+    ViewBag.Title = "Logon";
+
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Logon</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+
+        body {
+
+            padding-top: 100px;
+
+            padding-bottom: 50px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+ 
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 col-md-offset-4 well">
+
+                <legend>登入</legend>
+
+ 
+
+                @if (!ViewData.ModelState.IsValid)
+
+                {
+
+                    <div class="alert alert-error">
+
+                        <a class="close" data-dismiss="alert" href="#">×</a>
+
+                        @Html.ValidationSummary()
+
+                    </div>
+
+                }
+
+ 
+
+                @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @role="form" }))
+                {
+
+                    @Html.AntiForgeryToken()
+
+ 
+                    <div class="form-group" >
+                        @Html.TextBoxFor(x => x.Account, new { @class = "form-control", placeholder = "帳號", AutoComplete = "Off", tabindex = "1" })
+                    </div>
+                    <div class="form-group" >
+                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "密碼", AutoComplete = "Off", tabindex = "2" })
+                    </div>
+ 
+
+                    <label>
+
+                        @Html.CheckBoxFor(x => x.Remember)
+
+                        @Html.DisplayNameFor(x => x.Remember)
+
+                    </label>
+
+ 
+
+                    <div style="padding-top: 10px;">
+
+                        <button type="submit" name="submit" class="btn btn-primary">登入</button>
+
+                        <button type="button" name="reset" class="btn">清除</button>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+ 
+
+    <script src="~/Scripts/jquery-2.0.2.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $('#Account').focus();
+
+            $('button[name=reset]').click(function () {
+
+                $('#Account').val('');
+
+                $('#Password').val('');
+
+                $('#Remember').prop('checked', '');
+
+                if ($('.alert>a.close').length > 0) {
+
+                    $('.alert>a.close').trigger('click');
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

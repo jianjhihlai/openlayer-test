@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="County.cs" />
     <Compile Include="DBObject.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Town.cs" />
     <Compile Include="Village.cs" />
     <Compile Include="Table1.cs" />
