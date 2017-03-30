@@ -1,0 +1,50 @@
+﻿@model Openlayer_test.TESTDB.Table1
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Table1</legend>
+    <table class="table table-bordered table-nonfluid" style="width:50%">
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.PlanYear)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.PlanYear)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.SUBBASINNA)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.SUBBASINNA)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Village.VillageName)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Village.VillageName)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.DisName)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.DisName)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.X)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.X)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Y)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Y)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Lon)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Lon)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Lat)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Lat)</td>
+        </tr>
+    </table>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

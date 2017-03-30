@@ -10,7 +10,7 @@ namespace Openlayer_test.TESTDB.Interface
         Table1 GetOne(int item_id);
         IEnumerable<Table1> GetAll();
         int Create(Table1 item);
-        int Update(int item_id, Table1 item);
+        int Update(Table1 item);
         int Delete(int item_id);
         int BatchCreate(IEnumerable<Table1> item_list);
         int BatchUpdate(IEnumerable<Table1> item_list);
