@@ -93,6 +93,17 @@ namespace web_test.Helpers
             {
                 IUserRepository user_model = new Openlayer_test.TESTDB.EF.UserRepository();
                 var user = user_model.GetOne(systemUserID);
+                if (user.ID > 0)
+                {
+                    if (user.Name.Equals(""))
+                    {
+                        userName = "匿名";
+                    }
+                    else
+                    {
+                        userName = user.Name;
+                    }
+                }
                 //using (SampleContext db = new SampleContext())
                 //{
 

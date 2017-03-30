@@ -12,7 +12,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Logon</title>
+    <title>NewUser</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
@@ -47,7 +47,7 @@
                         </div>
                 }
                 
-                @using (Html.BeginForm("Edit", "NewUser", FormMethod.Post, new { @role = "form", @class="form-horizontal" }))
+                @using (Html.BeginForm("Create", "NewUser", FormMethod.Post, new { @role = "form", @class="form-horizontal" }))
                 {
 
                     <fieldset>

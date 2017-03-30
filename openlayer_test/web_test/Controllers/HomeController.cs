@@ -77,7 +77,7 @@ namespace test_web.Controllers
 
 
 
-            var password = CryptographyPassword(logonModel.Password, BaseController.PasswordSalt);
+            var password = BaseController.CryptographyPassword(logonModel.Password, BaseController.PasswordSalt);
 
 
 
@@ -138,18 +138,7 @@ namespace test_web.Controllers
 
         }
 
-        protected string CryptographyPassword(string password, string salt)
-        {
-
-            string cryptographyPassword =
-
-                FormsAuthentication.HashPasswordForStoringInConfigFile(password + salt, "sha1");
-
-
-
-            return cryptographyPassword;
-
-        }
+        
 
         private void LoginProcess(Openlayer_test.TESTDB.User user, bool isRemeber)
         {

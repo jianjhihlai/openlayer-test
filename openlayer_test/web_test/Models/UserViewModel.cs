@@ -1,5 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using Openlayer_test.TESTDB;
+using Openlayer_test.TESTDB.Interface;
+using Openlayer_test.TESTDB.EF;
+using System.Web.Security;
 
 namespace web_test.Models
 {
@@ -14,10 +18,36 @@ namespace web_test.Models
         // 
         // System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<web_test.Models.UserViewModel>());
 
+        IUserRepository _db;
+
         public UserViewModel() : base("name=UserViewModel")
         {
+            _db = new UserRepository();
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Openlayer_test.TESTDB.User> Users { get; set; }
+
+        public int AddUser(Openlayer_test.TESTDB.User user)
+        {
+            user.Password = CryptographyPassword(user.Password, "test");
+            user.IsEnable = true;
+            user.CreateBy = 1;
+            user.CreateOn = DateTime.Now;
+            int id = _db.Create(user);
+            return id;
+        }
+
+        protected string CryptographyPassword(string password, string salt)
+        {
+
+            string cryptographyPassword =
+
+                FormsAuthentication.HashPasswordForStoringInConfigFile(password + salt, "sha1");
+
+
+
+            return cryptographyPassword;
+
+        }
     }
 }

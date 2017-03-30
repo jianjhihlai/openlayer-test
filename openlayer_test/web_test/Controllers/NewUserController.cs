@@ -51,9 +51,14 @@ namespace web_test.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.AddUser(user) > 0)
+                {
+                    return RedirectToAction("Create", "NewUser");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "新增錯誤!");
+                }
             }
 
             return View(user);

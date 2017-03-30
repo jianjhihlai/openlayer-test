@@ -11,7 +11,16 @@ namespace Openlayer_test.TESTDB.EF
     {
         public TESTDB.User GetOne(int item_id)
         {
-            throw new NotImplementedException();
+            var item = new TESTDB.User();
+            using (var dbContext = new TESTDBEntities())
+            {
+                var ef_item = dbContext.User.FirstOrDefault(obj => obj.ID == item_id && obj.IsEnable);
+                if (ef_item != null)
+                {
+                    item = UserRepository.EFMapper(ef_item);
+                }
+            }
+            return item;
         }
 
         public TESTDB.User QueryOne(string item_no)
@@ -35,7 +44,23 @@ namespace Openlayer_test.TESTDB.EF
 
         public int Create(TESTDB.User item)
         {
-            throw new NotImplementedException();
+            int id = 0;
+            TESTDBEntities dbContext = new TESTDBEntities();
+            try
+            {
+                var ef_item = UserRepository.EFMapper(item);
+                dbContext.User.AddObject(ef_item);
+                dbContext.SaveChanges();
+                id = item.ID = ef_item.ID;
+            }
+            catch
+            {
+            }
+            finally
+            {
+                dbContext.Dispose();
+            }
+            return id;
         }
 
         public int Update(int item_id, TESTDB.User item)
@@ -89,5 +114,7 @@ namespace Openlayer_test.TESTDB.EF
             ef_item.UpdateOn = item.UpdateOn;
             return ef_item;
         }
+
+        
     }
 }
