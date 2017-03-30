@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Openlayer_test.TESTDB.Table1>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Table 1</h2>
+
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PlanYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SUBBASINNA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Village.VillageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.X)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Y)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lat)
+        </th>
+        <th>@Html.ActionLink("Create New", "Create")</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PlanYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SUBBASINNA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Village.VillageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.X)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Y)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lat)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Table1ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Table1ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Table1ID })
+        </td>
+    </tr>
+}
+
+</table>

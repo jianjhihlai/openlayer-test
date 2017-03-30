@@ -12,12 +12,30 @@ namespace Openlayer_test.TESTDB.EF
 
         public TESTDB.Table1 GetOne(int item_id)
         {
-            throw new NotImplementedException();
+            var item = new TESTDB.Table1();
+            using (var dbContext = new TESTDBEntities())
+            {
+                var ef_item = dbContext.Table1.FirstOrDefault(obj => obj.Table1ID == item_id);
+                if (ef_item != null)
+                {
+                    item = Table1Repository.EFMapper(ef_item);
+                }
+            }
+            return item;
         }
 
         public IEnumerable<TESTDB.Table1> GetAll()
         {
-            throw new NotImplementedException();
+            var item_list = new List<TESTDB.Table1>();
+            using (var dbContext = new TESTDBEntities())
+            {
+                var ef_list = dbContext.Table1.ToList();
+                foreach (TESTDB.EF.Table1 ef_item in ef_list)
+                {
+                    item_list.Add(Table1Repository.EFMapper(ef_item));
+                }
+            }
+            return item_list;
         }
 
         public int Create(TESTDB.Table1 item)
@@ -45,14 +63,42 @@ namespace Openlayer_test.TESTDB.EF
             return id;
         }
 
-        public int Update(int item_id, TESTDB.Table1 item)
+        public int Update(TESTDB.Table1 item)
         {
-            throw new NotImplementedException();
+            int id = 0;
+            TESTDBEntities dbContext = new TESTDBEntities();
+            try
+            {
+                var ef_item = dbContext.Table1.FirstOrDefault(obj => obj.Table1ID == item.Table1ID);
+                if (ef_item != null)
+                {
+                    Table1Repository.EFMapper(item, ef_item);
+
+                    dbContext.SaveChanges();
+                    id = ef_item.Table1ID;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dbContext.Dispose();
+            }
+            return id;
         }
 
         public int Delete(int item_id)
         {
-            throw new NotImplementedException();
+            var ef_item = new TESTDB.EF.Table1 { Table1ID = item_id };
+            using (TESTDBEntities dbContext = new TESTDBEntities())
+            {
+                dbContext.Table1.Attach(ef_item);
+                dbContext.Table1.DeleteObject(ef_item);
+                dbContext.SaveChanges();
+            }
+            return item_id;
         }
 
         public int BatchCreate(IEnumerable<TESTDB.Table1> item_list)
@@ -63,6 +109,20 @@ namespace Openlayer_test.TESTDB.EF
         public int BatchUpdate(IEnumerable<TESTDB.Table1> item_list)
         {
             throw new NotImplementedException();
+        }
+
+        public static void EFMapper(TESTDB.Table1 item, TESTDB.EF.Table1 ef_item)
+        {
+            ef_item.Table1ID = item.Table1ID;
+            ef_item.PlanYear = item.PlanYear;
+            ef_item.SUBBASINNA = item.SUBBASINNA;
+            
+            ef_item.VillageID = item.VillageID;
+            ef_item.DisName = item.DisName;
+            ef_item.X = item.X;
+            ef_item.Y = item.Y;
+            ef_item.Lon = item.Lon;
+            ef_item.Lat = item.Lat;
         }
                 
         public static TESTDB.Table1 EFMapper(TESTDB.EF.Table1 ef_item)
