@@ -28,6 +28,11 @@ namespace test_web.Controllers
             return View();
         }
 
+        public ActionResult Example2()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();

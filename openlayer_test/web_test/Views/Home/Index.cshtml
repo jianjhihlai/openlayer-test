@@ -1,34 +1,188 @@
 ﻿@{
-    ViewBag.Title = "Bootstrap";
+    ViewBag.Title = "Openlayer";
 }
-
-<div class="container marketing">
-    <div class="row">
-
-        <div class="col-lg-4">
-            <img class="img-circle" src="/Content/images/Icon1.png" data-src="holder.js/140x140" alt="140x140" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
-        </div>
-
-        <div class="col-lg-4">
-            <img class="img-circle" src="/Content/images/Icon2.png" data-src="holder.js/140x140" alt="140x140" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
-        </div>
-
-        <div class="col-lg-4">
-            <img class="img-circle" src="/Content/images/Icon3.png" data-src="holder.js/140x140" alt="140x140" style="width: 140px; height: 140px;">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-            <p><a class="btn btn-default" href="#">View details »</a></p>
-        </div>
-    </div>
-</div>
-@section Carousel
+@section CSSHead
 {
-    @Html.Partial("_Carousel")
+    <link href="@Url.Content("https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.css")" rel="stylesheet" type="text/css" />
 }
+
+@section JSTail
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.6.0/ol.js"></script>
+}
+
+@section CustomScripts
+{
+<script>
+    var url = 'http://localhost:29535/web_test/api/table1api/';
+    var count = 0;
+    var features;
+    $(document).ready(function () {
+        //        $.getJSON(url)
+        //          .done(function (data) {
+        //              features = new Array(data.length);
+        //              $.each(data, function (key, item) {
+        //                  var coordinates = [item.Lon, item.Lat];
+        //                  features[i] = new ol.Feature(new ol.geom.Point(coordinates));
+        //                  count++;
+        //              });
+        //          });
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                create_cluster(data);
+            },
+            error: function () {
+                alert("ERROR!!!");
+            }
+        });
+
+    });
+    var getText = function (feature, resolution, dom) {
+        var type = dom.text.value;
+        var maxResolution = dom.maxreso.value;
+        var text = feature.get('name');
+
+        if (resolution > maxResolution) {
+            text = '';
+        } else if (type == 'hide') {
+            text = '';
+        } else if (type == 'shorten') {
+            text = text.trunc(12);
+        } else if (type == 'wrap') {
+            text = stringDivider(text, 16, '\n');
+        }
+
+        return text;
+    };
+
+    var createTextStyle = function (feature, resolution, dom) {
+        var align = dom.align.value;
+        var baseline = dom.baseline.value;
+        var size = dom.size.value;
+        var offsetX = parseInt(dom.offsetX.value, 10);
+        var offsetY = parseInt(dom.offsetY.value, 10);
+        var weight = dom.weight.value;
+        var rotation = parseFloat(dom.rotation.value);
+        var font = weight + ' ' + size + ' ' + dom.font.value;
+        var fillColor = dom.color.value;
+        var outlineColor = dom.outline.value;
+        var outlineWidth = parseInt(dom.outlineWidth.value, 10);
+
+        return new ol.style.Text({
+            textAlign: align,
+            textBaseline: baseline,
+            font: font,
+            text: getText(feature, resolution, dom),
+            fill: new ol.style.Fill({ color: fillColor }),
+            stroke: new ol.style.Stroke({ color: outlineColor, width: outlineWidth }),
+            offsetX: offsetX,
+            offsetY: offsetY,
+            rotation: rotation
+        });
+    };
+    var createPointStyleFunction = function () {
+        return function (feature, resolution) {
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 10,
+                    fill: new ol.style.Fill({ color: 'rgba(255, 0, 0, 0.1)' }),
+                    stroke: new ol.style.Stroke({ color: 'red', width: 1 })
+                }),
+                text: createTextStyle(feature, resolution, myDom.points)
+            });
+            return [style];
+        };
+    };
+        function create_cluster(data) {
+            features = new Array(data.length);
+            $.each(data, function (key, item) {
+                var coordinates = [item.Lon, item.Lat];
+                features[count] = new ol.Feature({ geometry: new ol.geom.Point(coordinates),
+                    name: item.DisName
+                });
+                //features[count] = { "type": "Feature", "properties": { "name": item.DisName }
+                //                                     , "geometry": { "type": "Point", "coordinates": coordinates} };
+                // var properties = features[count].getProperties();
+                count++;
+            });
+            var source = new ol.source.Vector({
+                features: features,
+                format: new ol.format.GeoJSON()
+            });
+
+            var clusterSource = new ol.source.Cluster({
+                distance: 40,
+                source: source
+            });
+
+            var styleCache = {};
+            var clusters = new ol.layer.Vector({
+                source: clusterSource,
+                format: new ol.format.GeoJSON(),
+                style: function (feature, resolution) {
+                    var size = feature.get('features').length;
+                    var name = feature.get('name');
+                    var properties = feature.getProperties();
+                    var style = styleCache[size];
+                    if (!style) {
+                        style = [new ol.style.Style({
+                            image: new ol.style.Circle({
+                                radius: 10,
+                                stroke: new ol.style.Stroke({
+                                    color: '#fff'
+                                }),
+                                fill: new ol.style.Fill({
+                                    color: '#3399CC'
+                                })
+                            }),
+                            text: new ol.style.Text({
+                                text: size.toString(),
+                                fill: new ol.style.Fill({
+                                    color: '#fff'
+                                })
+                            })
+                        })];
+                        styleCache[size] = style;
+                    }
+                    return style;
+                }
+            });
+
+            var raster = new ol.layer.Tile({
+                source: new ol.source.MapQuest({ layer: 'sat' })
+            });
+
+            var raw = new ol.layer.Vector({
+                source: source
+            });
+
+            var map = new ol.Map({
+                layers: [raster, clusters],
+                renderer: 'canvas',
+                target: 'map',
+                view: new ol.View({
+                    center: [0, 0],
+                    zoom: 0.5
+                })
+            });
+        }
+
+    
+
+</script>
+}
+
+<div class="container-fluid">
+
+<div class="row-fluid">
+  <div class="span12">
+    <div id="map" class="map"></div>
+  </div>
+</div>
+
+</div>
+
 
