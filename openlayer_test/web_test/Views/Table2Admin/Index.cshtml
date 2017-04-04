@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Openlayer_test.TESTDB.Table2>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Table 2</h2>
+<div class="table-responsive" style="width:100%;">
+<table class="table table-bordered table-striped table-hover" style="white-space: nowrap;">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RawFile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnviFile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TileFile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeftGeo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RightGeo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopGeo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BottomGeo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Resolution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Month)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DisName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Village.VillageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Basin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subbasinna)
+        </th>
+        <th>@Html.ActionLink("Create New", "Create")</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.RawFile, "Download", new { id = item.Table2ID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnviFile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TileFile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LeftGeo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RightGeo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopGeo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BottomGeo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resolution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Month)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Day)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DisName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Village.VillageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Basin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subbasinna)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Table2ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Table2ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Table2ID })
+        </td>
+    </tr>
+}
+
+</table>
+</div>

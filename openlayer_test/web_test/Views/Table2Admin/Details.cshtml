@@ -1,0 +1,114 @@
+﻿@model Openlayer_test.TESTDB.Table2
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<fieldset>
+    <legend>Table2</legend>
+
+    <table class="table table-bordered table-nonfluid" style="width:50%">
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.RawFile)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.RawFile)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.EnviFile)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.EnviFile)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.TileFile)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.TileFile)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Lon)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Lon)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Lat)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Lat)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.LeftGeo)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.LeftGeo)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.RightGeo)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.RightGeo)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.TopGeo)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.TopGeo)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.BottomGeo)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.BottomGeo)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Resolution)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Resolution)</td>
+        </tr>
+        <tr>
+            <th class="active">@Html.DisplayNameFor(model => model.Year)</th>
+            <td class="col-md-9">@Html.DisplayFor(model => model.Year)</td>
+        </tr>
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.Month)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.Month)
+            </td>
+        </tr>
+
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.Day)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.Day)
+            </td>
+        </tr>
+
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.DisName)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.DisName)
+            </td>
+        </tr>
+
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.Village.VillageName)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.Village.VillageName)
+            </td>
+        </tr>
+
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.Basin)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.Basin)
+            </td>
+        </tr>
+
+        <tr>
+            <th class="active">
+            @Html.DisplayNameFor(model => model.Subbasinna)
+            </th>
+            <td class="col-md-9">
+            @Html.DisplayFor(model => model.Subbasinna)
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Table2ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
