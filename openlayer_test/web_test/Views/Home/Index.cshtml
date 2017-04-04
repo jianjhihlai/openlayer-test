@@ -96,10 +96,56 @@
             return [style];
         };
     };
+
+    var highlightStyleCache = {};
+
+    var featureOverlay;
+
+    var highlight;
+    var displayFeatureInfo = function (map, pixel) {
+        var size = 0;
+        var feature = map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+            var features = feature.get('features');
+            if (typeof features == 'undefined') {
+                return feature;
+            } else if (features.length > 1) {
+                size = features.length;
+                return feature;
+            } else {
+                size = 1;
+                return features[0];
+            }
+        });
+
+        var info = document.getElementById('info');
+        if (feature) {
+            if (size > 1) {
+                info.innerHTML = 'CLUSTER: ' + size.toString();
+            } else {
+                info.innerHTML = feature.get('name');
+            }
+        } else {
+            info.innerHTML = '&nbsp;';
+        }
+
+        if (feature !== highlight) {
+            if (highlight) {
+                featureOverlay.removeFeature(highlight);
+            }
+            if (feature) {
+                featureOverlay.addFeature(feature);
+            }
+            highlight = feature;
+        }
+
+    };
+
+    
+
         function create_cluster(data) {
             features = new Array(data.length);
             $.each(data, function (key, item) {
-                var coordinates = [item.Lon, item.Lat];
+                var coordinates = [item.Lat, item.Lon];
                 features[count] = new ol.Feature({ geometry: new ol.geom.Point(coordinates),
                     name: item.DisName
                 });
@@ -109,8 +155,7 @@
                 count++;
             });
             var source = new ol.source.Vector({
-                features: features,
-                format: new ol.format.GeoJSON()
+                features: features
             });
 
             var clusterSource = new ol.source.Cluster({
@@ -121,13 +166,20 @@
             var styleCache = {};
             var clusters = new ol.layer.Vector({
                 source: clusterSource,
-                format: new ol.format.GeoJSON(),
                 style: function (feature, resolution) {
-                    var size = feature.get('features').length;
-                    var name = feature.get('name');
+                    var features = feature.get('features');
+                    
+                    var size = features.length;
+                    var name;
+                    if (size == 1) {
+                        name = features[0].get('name');
+                    }
+                    else {
+                        name = size.toString();
+                    }
                     var properties = feature.getProperties();
                     var style = styleCache[size];
-                    if (!style) {
+                    if (!style || size == 1) {
                         style = [new ol.style.Style({
                             image: new ol.style.Circle({
                                 radius: 10,
@@ -139,9 +191,9 @@
                                 })
                             }),
                             text: new ol.style.Text({
-                                text: size.toString(),
+                                text: name,
                                 fill: new ol.style.Fill({
-                                    color: '#fff'
+                                    color: '#000'
                                 })
                             })
                         })];
@@ -164,9 +216,50 @@
                 renderer: 'canvas',
                 target: 'map',
                 view: new ol.View({
-                    center: [0, 0],
-                    zoom: 0.5
+                    center: [24, 121],
+                    zoom: 25
                 })
+            });
+
+            featureOverlay = new ol.FeatureOverlay({
+                map: map,
+                style: function (feature, resolution) {
+                    var text = resolution < 5000 ? feature.get('name') : '';
+                    if (!highlightStyleCache[text]) {
+                        highlightStyleCache[text] = [new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: '#f00',
+                                width: 1
+                            }),
+                            fill: new ol.style.Fill({
+                                color: 'rgba(255,0,0,0.1)'
+                            }),
+                            text: new ol.style.Text({
+                                font: '12px Calibri,sans-serif',
+                                text: text,
+                                fill: new ol.style.Fill({
+                                    color: '#000'
+                                }),
+                                stroke: new ol.style.Stroke({
+                                    color: '#f00',
+                                    width: 3
+                                })
+                            })
+                        })];
+                    }
+                    return highlightStyleCache[text];
+                }
+            });
+            map.on('pointermove', function (evt) {
+                if (evt.dragging) {
+                    return;
+                }
+                var pixel = map.getEventPixel(evt.originalEvent);
+                displayFeatureInfo(this, pixel);
+            });
+
+            map.on('click', function (evt) {
+                displayFeatureInfo(this, evt.pixel);
             });
         }
 
@@ -175,12 +268,19 @@
 </script>
 }
 
-<div class="container-fluid">
+<div class="container">
 
-<div class="row-fluid">
-  <div class="span12">
-    <div id="map" class="map"></div>
-  </div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="map" class="map"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-8">
+        <div id="info" class="alert alert-success">
+            &nbsp;
+        </div>
+    </div>
 </div>
 
 </div>
